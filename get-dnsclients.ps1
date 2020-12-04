@@ -28,7 +28,6 @@ foreach($line in $log){
         foreach($existingclient in $dnsclients){ if($ClientIP -match $($existingclient.ClientIP)){ $addIP = $false } }
 
         if($addIP){
-            write-host "Found new client $ClientIP"
             $ClientHostname = ([system.net.dns]::GetHostByAddress($ClientIP)).hostname
             $propsout            = @{
                                     ClientIP        = $ClientIP
