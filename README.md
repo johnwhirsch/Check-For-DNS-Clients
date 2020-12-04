@@ -5,6 +5,6 @@ To use this script, follow the answer suggestion on this page (https://superuser
 
 Examples:
 
-get-dnsclients.ps1 -logfile \\hostname\C$\dns.log
+get-dnsclients.ps1 -logfile \\\hostname\C$\dns.log
 
 get-dnsclients.ps1 -logfile C:\dns.log
