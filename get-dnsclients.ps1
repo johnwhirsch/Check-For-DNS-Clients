@@ -15,27 +15,31 @@ foreach($line in $log){
 
         # Leaving these here for future additions to the script(maybe)
         # Additional info can be added to the propsout array if desired
+        
+        if($linedata.groups.count -eq 11){
 
-        $PacketType          = $linedata.Groups[1]
-        $ClientIP            = $linedata.Groups[2]
-        $QueryType           = $linedata.Groups[4]
-        $QueryResponseStatus = $linedata.Groups[6]
-        $QueryResponseType   = $linedata.Groups[8]
-        $Query               = ($linedata.Groups[10] -replace "(\([0-9]+\))", ".").TrimStart(".")
+            $PacketType          = $linedata.Groups[1]
+            $ClientIP            = $linedata.Groups[2]
+            $QueryType           = $linedata.Groups[4]
+            $QueryResponseStatus = $linedata.Groups[6]
+            $QueryResponseType   = $linedata.Groups[8]
+            $Query               = ($linedata.Groups[10] -replace "(\([0-9]+\))", ".").TrimStart(".")
 
-        $addIP = $true
+            $addIP = $true
 
-        foreach($existingclient in $dnsclients){ if($ClientIP -match $($existingclient.ClientIP)){ $addIP = $false } }
+            foreach($existingclient in $dnsclients){ if($ClientIP -match $($existingclient.ClientIP)){ $addIP = $false } }
 
-        if($addIP){
-            $ClientHostname = ([system.net.dns]::GetHostByAddress($ClientIP)).hostname
-            $propsout            = @{
-                                    ClientIP        = $ClientIP
-                                    ClientHostname  = $ClientHostname
-                                 }
-            $objout              = New-Object -TypeName psobject -Property $propsout 
-            $dnsclients          += $objout               
-        }            
+            if($addIP){
+                try{ $ClientHostname = ([system.net.dns]::GetHostByAddress($ClientIP)).hostname }
+                catch { $ClientHostname = "Cannot Resolve Hostname" }
+                $propsout            = @{
+                                        ClientIP        = $ClientIP
+                                        ClientHostname  = $ClientHostname
+                                     }
+                $objout              = New-Object -TypeName psobject -Property $propsout 
+                $dnsclients          += $objout               
+            }   
+        } # EO if linedata gt 5         
     }
 }
 
