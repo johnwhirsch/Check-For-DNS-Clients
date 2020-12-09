@@ -6,12 +6,12 @@ You can also have it check the DNS queries against the Cisco Umbrella list of th
 
 
 Examples:
-# checks the dns.log file and returns all DNS clients in a CSV as well as the terminal
+### checks the dns.log file and returns all DNS clients in a CSV as well as the terminal
 get-dnsclients.ps1 -logfile \\\hostname\C$\dns.log 
 get-dnsclients.ps1 -logfile C:\dns.log 
 
-# Finds any DNS queries not in the top 1 million domains file that it downloads
+### Finds any DNS queries not in the top 1 million domains file that it downloads
 get-dnsclients.ps1 -logfile \\\hostname\C$\dns.log -FindUnpopular 
 
-# The following will add the customignores arguments to a CSV to ignore in the future while running the FindUnpopular option
+### The following will add the customignores arguments to a CSV to ignore in the future while running the FindUnpopular option
 get-dnsclients.ps1 -logfile \\\hostname\C$\dns.log -FindUnpopular -CustomIgnores windows.com,office.com,rackspace.com 
