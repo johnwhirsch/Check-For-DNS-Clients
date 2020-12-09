@@ -6,7 +6,7 @@ You can also have it check the DNS queries against the Cisco Umbrella list of th
 
 
 Examples:
-### checks the dns.log file and returns all DNS clients in a CSV as well as the terminal
+### Check the dns.log file and returns all DNS clients in a CSV as well as the terminal
 get-dnsclients.ps1 -logfile \\\hostname\C$\dns.log 
 get-dnsclients.ps1 -logfile C:\dns.log 
 
